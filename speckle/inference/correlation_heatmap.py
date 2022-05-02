@@ -36,7 +36,7 @@ def mask_heatmap(center,radius_out,heatmap, scale_bar_position, scale_ratio):
     xv -= x_center
     yv -= y_center
     radius = np.sqrt(xv**2 + yv**2)
-    mask=radius<radius_outer
+    mask=radius<radius_out
     heatmap_masked=heatmap*mask
     f, ax = plt.subplots(figsize=(10, 8))
     ax = sns.heatmap(heatmap_masked,vmin=0, vmax=0.7)
