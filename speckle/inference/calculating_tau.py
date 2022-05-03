@@ -18,10 +18,10 @@ def avg_correlation_single_px(corr_maps,px,loadtRange,load_t_Range, laglist_fx,l
         average_tau.append(px_tau)
     return average_tau
 
-def plot_correlation_vs_lagtime(average_tau,lagtime_fx):
+def plot_correlation_vs_lagtime(px,average_tau,lagtime_fx):
     plt.figure(figsize=(8,5))
-    plt.plot(lagtime_fx,average_tau,'.')
-    plt.legend(['Correlation vs Lagtime'], fontsize=18)
+    plt.plot(lagtime_fx,average_tau,'.',label=str(px)+' correlation vs time')
+    plt.legend(fontsize=18)
     plt.xlabel("Lagtime [s]",fontsize=18)
     plt.ylabel("Correlation",fontsize=18)
 

@@ -7,7 +7,6 @@ from skimage import io
 def dedrift_videos(imgs,dedrift_file,foldername, imgname):
     data= pd.read_csv(dedrift_file)
     original=[data.XM[0],data.YM[0]]
-    initial_area=data.Area[0]
     for index in range(0,imgs.shape[0],1):
         x_difference=original[0]-data.XM[index]
         y_difference=original[1]-data.YM[index]
