@@ -43,6 +43,7 @@ def fit_exponential_decay(plateau,average_tau,lagtime_fx,startidx,endidx, plotBo
         print('y = %.5f * x + %.5f' % (a, b))
         # plot input vs output
         plt.scatter(x, y)
+        
         # define a sequence of inputs between the smallest and largest known inputs
         x_line = np.arange(min(x), max(x), 1)
         # calculate the output for the range
