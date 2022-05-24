@@ -18,10 +18,10 @@ def dump_heatmap(lag,laglist,loadtRange,t_range, corr_maps, heatmap_size, number
         for x in range(heatmap_size[0]):
             print([y,x])
             heatmap[y,x]=get_correlation(index,loadtRange,t_range, [y,x], corr_maps)
-    pickle.dump(heatmap, open(foldername+'_heatmap_decay_'+str(lag)+'_lagtime_'+str(numberT_average)+'avg.p',"wb"))
+    pickle.dump(heatmap, open(foldername+'heatmap_decay_'+str(lag)+'_lagtime_'+str(numberT_average)+'avg.p',"wb"))
     
 def display_correlation_heatmaps(lag, numberT_average, minV, maxV, foldername):
-    heatmap_lag=pickle.load(open(foldername+'_heatmap_decay_'+str(lag)+'_lagtime_'+str(numberT_average)+'avg.p', "rb"))
+    heatmap_lag=pickle.load(open(foldername+'heatmap_decay_'+str(lag)+'_lagtime_'+str(numberT_average)+'avg.p', "rb"))
     f, ax = plt.subplots(figsize=(10, 8))
     ax = sns.heatmap(heatmap_lag,vmin=minV, vmax=maxV)
     plt.show()
