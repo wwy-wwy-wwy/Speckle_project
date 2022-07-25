@@ -60,6 +60,50 @@ def fit_exponential_decay(plateau,average_tau,lagtime_fx,startidx,endidx, plotBo
         a, b = popt
         print(-1/a)
         return -1/a
+    
+def fit_exponential_decay_rsq(plateau,average_tau,lagtime_fx,startidx,endidx, plotBoolean):
+    load_correlation=average_tau
+    substracted_correlation=average_tau-plateau
+    log_correlation=np.zeros(len(lagtime_fx))
+    log_correlation_s=np.zeros(len(lagtime_fx))
+    for i in range(len(lagtime_fx)):
+        log_correlation[i]=math.log(abs(load_correlation[i]))
+        log_correlation_s[i]=math.log(abs(substracted_correlation[i]))
+    if plotBoolean==True:
+        x, y = lagtime_fx, log_correlation_s
+        # curve fit
+        popt, _ = curve_fit(objective, x[startidx:endidx], y[startidx:endidx])
+        # summarize the parameter values
+        a, b = popt
+        print("tau is:",-1/a)
+        print('y = %.5f * x + %.5f' % (a, b))
+        # plot input vs output
+        plt.scatter(x, y)
+        
+        # define a sequence of inputs between the smallest and largest known inputs
+        x_line = np.arange(min(x), max(x), 1)
+        # calculate the output for the range
+        y_line = objective(x_line, a, b)
+        # create a line plot for the mapping function
+        plt.plot(x_line, y_line, '--', color='red')
+        plt.show()
+        
+        fit=np.zeros(endidx-startidx)
+        for i in range(endidx-startidx):
+            fit[i]=a*x[i+startidx]+b
+        corr_matrix = np.corrcoef(y[startidx:endidx],fit)
+        corr = corr_matrix[0,1]
+        R_sq = corr**2
+        print('R square is '+str(R_sq))
+        return -1/a,a,b
+    else:
+        x, y = lagtime_fx, log_correlation_s
+        # curve fit
+        popt, _ = curve_fit(objective, x[startidx:endidx], y[startidx:endidx])
+        # summarize the parameter values
+        a, b = popt
+        print(-1/a)
+        return -1/a
 
 def reconstruct(lagtime_fx,plateau,average_value,a,b):
     y=np.zeros((len(lagtime_fx)))
@@ -72,6 +116,7 @@ def reconstruct(lagtime_fx,plateau,average_value,a,b):
     plt.xlabel("Lagtime [s]",fontsize=18)
     plt.ylabel("Correlation",fontsize=18)
     plt.legend(fontsize=18)
+    plt.tick_params(direction='in')
     
 def avg_correlation(corr_maps, px_list,loadtRange,load_t_Range,laglist_fx,laglist_global):
     average_tau=[]
