@@ -110,9 +110,9 @@ def reconstruct(lagtime_fx,plateau,average_value,a,b):
     for i in range(len(lagtime_fx)):
         y[i]=np.exp(b+a*lagtime_fx[i])+plateau
     plt.figure(figsize=(8,5))
-    plt.plot(lagtime_fx,y,'*',label="fit line")
-    plt.plot(lagtime_fx,average_value,'.',label="data")
-    plt.legend(['Correlation vs Lagtime'], fontsize=18)
+    plt.plot(np.log(lagtime_fx),y,'*',label="fit line")
+    plt.plot(np.log(lagtime_fx),average_value,'.',label="data")
+    plt.legend(['Correlation vs Log Lagtime'], fontsize=18)
     plt.xlabel("Lagtime [s]",fontsize=18)
     plt.ylabel("Correlation",fontsize=18)
     plt.legend(fontsize=18)
