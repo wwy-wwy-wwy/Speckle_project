@@ -102,8 +102,7 @@ def fit_exponential_decay_rsq(plateau,average_tau,lagtime_fx,startidx,endidx, pl
         popt, _ = curve_fit(objective, x[startidx:endidx], y[startidx:endidx])
         # summarize the parameter values
         a, b = popt
-        print(-1/a)
-        return -1/a
+        return -1/a,a,b
 
 def reconstruct(lagtime_fx,plateau,average_value,a,b):
     y=np.zeros((len(lagtime_fx)))
